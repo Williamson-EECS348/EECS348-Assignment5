@@ -14,6 +14,34 @@ EmailNode* EmailNode_create(const char* category, const char* subject, const cha
     return node;
 }
 
+EmailNode* EmailNode_createFromString(const char* str) {
+    // Expected format: "Category,Subject,Date"
+    char* token;
+    char* strCopy = strdup(str);
+    char* category;
+    char* subject;
+    char* date;
+
+    token = strtok(strCopy, ",");
+    category = strdup(token);
+
+    token = strtok(NULL, ",");
+    subject = strdup(token);
+
+    token = strtok(NULL, ",");
+    date = strdup(token);
+
+    free(strCopy);
+
+    EmailNode* node = EmailNode_create(category, subject, date);
+
+    free(category);
+    free(subject);
+    free(date);
+
+    return node;
+}
+
 void EmailNode_destroy(EmailNode* node) {
     free(node->category);
     free(node->subject);
@@ -87,6 +115,5 @@ int EmailNode_compare(const EmailNode* a, const EmailNode* b) {
 }
 
 void EmailNode_printNode(const EmailNode* node) {
-    printf("%s ", node->subject);
-    //printf("Sender: %s\n\tSubject: %s\n\tDate: %s\n", node->category, node->subject, node->date);
+    printf("\tSender: %s\n\tSubject: %s\n\tDate: %s\n", node->category, node->subject, node->date);
 }

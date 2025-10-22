@@ -8,7 +8,7 @@ NAME=assignment5
 all: assignment5
 
 always:
-	@mkdir -p $(BUILD_DIR)/$(NAME)
+	@mkdir -p $(BUILD_DIR)
 
 assignment5: $(BUILD_DIR)/$(NAME).out
 

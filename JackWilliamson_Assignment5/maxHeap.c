@@ -102,3 +102,5 @@ void MaxHeap_destroy(MaxHeap* h) {
     free(h->heap);
     free(h);
 }
+
+int MaxHeap_size(MaxHeap* h) { return h->size; }

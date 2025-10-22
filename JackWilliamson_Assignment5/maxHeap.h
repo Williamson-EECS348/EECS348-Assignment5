@@ -14,3 +14,5 @@ EmailNode* MaxHeap_pop(MaxHeap* h);
 EmailNode* MaxHeap_peek(MaxHeap* h);
 void MaxHeap_print(MaxHeap* h);
 void MaxHeap_destroy(MaxHeap* h);
+
+int MaxHeap_size(MaxHeap* h);
