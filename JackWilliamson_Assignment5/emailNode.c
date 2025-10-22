@@ -87,5 +87,6 @@ int EmailNode_compare(const EmailNode* a, const EmailNode* b) {
 }
 
 void EmailNode_printNode(const EmailNode* node) {
-    printf("Sender: %s\n\tSubject: %s\n\tDate: %s\n", node->category, node->subject, node->date);
+    printf("%s ", node->subject);
+    //printf("Sender: %s\n\tSubject: %s\n\tDate: %s\n", node->category, node->subject, node->date);
 }

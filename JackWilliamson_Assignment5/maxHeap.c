@@ -4,6 +4,8 @@
 #include <stdio.h>
 
 void upheap(MaxHeap* h, int index) {
+    if (index == 0) return;
+
     int parent = (index - 1) / 2;
 
     if (EmailNode_compare(h->heap[parent], h->heap[index])) {
@@ -17,23 +19,18 @@ void upheap(MaxHeap* h, int index) {
 
 void downheap(MaxHeap* h, int index) {
     int left = (index * 2) + 1,
-        right = (index * 2) + 2;
-    int max = index;
+        right = (index * 2) + 2,
+        max = index;
 
-    if (left >= h->size || left < 0)
-        left = -1;
-    if (right >= h->size || right < 0)
-        right = -1;
-
-    if (left != -1 && EmailNode_compare(h->heap[left], h->heap[max]))
+    if (left < h->size && EmailNode_compare(h->heap[max], h->heap[left]))
         max = left;
-    if (right != -1 && EmailNode_compare(h->heap[right], h->heap[max]))
+    if (right < h->size && EmailNode_compare(h->heap[max], h->heap[right]))
         max = right;
 
     if (max != index) {
-        EmailNode* temp = h->heap[max];
-        h->heap[max] = h->heap[index];
-        h->heap[index] = temp;
+        EmailNode* temp = h->heap[index];
+        h->heap[index] = h->heap[max];
+        h->heap[max] = temp;
 
         downheap(h, max);
     }
@@ -70,21 +67,17 @@ void MaxHeap_add(MaxHeap* h, EmailNode* value) {
     }
 }
 
-EmailNode MaxHeap_pop(MaxHeap* h) {
-    EmailNode* deleteItem;
+EmailNode* MaxHeap_pop(MaxHeap* h) {
     if (h->size == 0) {
-        printf("\nHeap is empty");
-        return *(EmailNode*)NULL; // return empty EmailNode
+        printf("Heap is empty");
+        return NULL; // return empty EmailNode
     }
 
-    deleteItem = h->heap[0];
-
-    h->heap[0] = h->heap[h->size - 1];
-    h->size--;
-
+    EmailNode* root = h->heap[0];
+    h->heap[0] = h->heap[--h->size];
     downheap(h, 0);
 
-    return *deleteItem;
+    return root;
 }
 
 EmailNode* MaxHeap_peek(MaxHeap* h) {
