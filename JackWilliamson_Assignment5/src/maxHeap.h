@@ -1,5 +1,5 @@
-#pragma once
-#include "emailNode.h"
+#pragma once // means that the header file will only be included once in the compiled program
+#include "emailNode.h" // `EmailNode` "class" definition
 
 /**
  * This 'class' is heavily based on a geeksforgeeks.org article
@@ -11,19 +11,18 @@
  * This is designed to be as object oriented as I could make it be because that is
  * just a better way to do this (plus it makes the UML diagram easier to make ;) )
  */
-// `typedef struct` so that I can call it just `MaxHeap` instead of `struct MaxHeap`
-//      in object declarations and function parameters
+// `typedef struct` so that I can call it just `MaxHeap` instead of `struct MaxHeap` in object declarations and function parameters
 typedef struct {
     EmailNode** heap; // double pointer because I want an array of (heap allocated) `EmailNode`s
     int size; // the number of nodes allocated in the heap
     int capacity; // the total number of nodes that can be allocated in the heap (i.e. the length of the `heap` array)
-} MaxHeap; // the name of the struct for the `MaxHeap`;
+} MaxHeap; // the name of the struct for the `MaxHeap`
 
 // forward declarations for the `MaxHeap`; if I implemented them here the program would have a 'multiple definition' error
 //      each one is prefixed with `MaxHeap_` and is being used like a namespace;
 //      These are equivelant to the public methods in the `MaxHeap` "class"
 /**
- * Creates a MaxHeap
+ * Creates a `MaxHeap`
  * @param capacity int; the number of nodes that the `MaxHeap` can take on
  * @return MaxHeap* that was contructed in
  * @note ownership is given back to the caller; call `MaxHeap_destroy` to free properly
