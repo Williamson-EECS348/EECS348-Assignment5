@@ -140,7 +140,7 @@ EmailNode MaxHeap_pop(MaxHeap* h) { // find comment explaining function purpose 
     return root;
 }
 
-EmailNode* MaxHeap_peek(MaxHeap* h) { // find comment explaining function purpose and parameters in `maxHeap.h`
+const EmailNode* MaxHeap_peek(MaxHeap* h) { // find comment explaining function purpose and parameters in `maxHeap.h`
     // we can only view the top of the max heap if it exists so
     if (h->size == 0) { // we check to see if it does
         printf("Heap is empty"); // tell the user that the heap is empty

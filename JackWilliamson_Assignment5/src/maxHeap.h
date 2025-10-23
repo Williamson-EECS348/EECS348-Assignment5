@@ -51,7 +51,7 @@ EmailNode MaxHeap_pop(MaxHeap* h);
  * @return `EmailNode*` to the top node of the `MaxHeap`
  * @note Ownership of the returned `EmailNode*` is retained by the passed `MaxHeap*`
  */
-EmailNode* MaxHeap_peek(MaxHeap* h);
+const EmailNode* MaxHeap_peek(MaxHeap* h);
 
 /**
  * Prints out the entire `MaxHeap`
