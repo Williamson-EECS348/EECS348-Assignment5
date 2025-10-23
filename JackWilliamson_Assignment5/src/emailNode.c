@@ -48,6 +48,7 @@ void EmailNode_destroy(EmailNode* node) {
     free(node->subject);
     free(node->date);
     free(node);
+    node = NULL;
 
 }
 

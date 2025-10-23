@@ -109,52 +109,71 @@ MaxHeap* MaxHeap_create(int capacity) { // find comment explaining function purp
 }
 
 void MaxHeap_add(MaxHeap* h, EmailNode* value) { // find comment explaining function purpose and parameters in `maxHeap.h`
-    // 
-    if (h->size < h->capacity) {
-        h->heap[h->size] = value;
-        upheap(h, h->size);
-        h->size++;
-    } else {
+    // we dont want to (attempt to) add more nodes than we have capacity for so we need to check for that
+    if (h->size < h->capacity) { // if the size is current less than the capacity we know we have room for at least one more node
+        h->heap[h->size] = value; // add the new node at the end of the array; since `h->size` counts from 1 the current size is equal to the next blank node's index
+        upheap(h, h->size); // now we want to upheap the newly added node so it gets put in the correct place in the max heap
+        h->size++; // increase the size count by one since we have one more value
+    } else { // if the size is at capacity
         printf("Heap at capacity; skipping."); // alert user that value wasn't added
     }
 }
 
 EmailNode MaxHeap_pop(MaxHeap* h) { // find comment explaining function purpose and parameters in `maxHeap.h`
-    if (h->size == 0) {
-        printf("Heap is empty");
-        EmailNode empty;
-        return empty; // return empty EmailNode
+    // we can only pop as many nodes as are avaliable so:
+    if (h->size == 0) { // if the size is zero we dont pop any
+        printf("Heap is empty"); // inform the user that no nodes were popped
+        EmailNode empty = {NULL, NULL, NULL}; // create an empty `EmailNode` to give back to the user
+        return empty; // return empty `EmailNode`
     }
 
-    EmailNode root = *h->heap[0];
-    free(h->heap[0]);
-    h->heap[0] = h->heap[--h->size];
-    downheap(h, 0);
+    // we want to keep the root to give it back to the user;
+    //  we dont want the user to have the pointer since we are about to free it
+    //  so we only make a copy of the root
+    EmailNode root = *h->heap[0]; // derefrence the root node so it makes a copy
+    EmailNode_destroy(h->heap[0]); // destroy the `EmailNode` to prevent memory leaks
+    h->size--; // make size one smaller since we popped an element from the max heap
+    h->heap[0] = h->heap[h->size]; // replace the node we just popped
+    downheap(h, 0); // downheap the node we just moved to the root so it goes to its proper place
 
+    // return the root copy to the user so they can use it (if needed)
     return root;
 }
 
 EmailNode* MaxHeap_peek(MaxHeap* h) { // find comment explaining function purpose and parameters in `maxHeap.h`
-    if (h->size == 0) {
-        printf("Heap is empty");
+    // we can only view the top of the max heap if it exists so
+    if (h->size == 0) { // we check to see if it does
+        printf("Heap is empty"); // tell the user that the heap is empty
         return NULL; // return empty EmailNode
     }
+
+    // return the root to the user; we return the pointer however ownership is maintained by the max heap
     return h->heap[0];
 }
 
-void MaxHeap_print(MaxHeap* h) {
+void MaxHeap_print(MaxHeap* h) { // find comment explaining function purpose and parameters in `maxHeap.h`
+    // print every element of the `MaxHeap h`
+    // we only loop to the size and not capacity since there could be elements not yet assigned
+    //  but everything from index [0] to [size - 1] is
     for (int i = 0; i < h->size; i++) {
-        EmailNode_printNode(h->heap[i]);
+        EmailNode_printNode(h->heap[i]); // we call `EmailNode_printNode` so that we have proper formatting
     }
-    printf("\n");
+    printf("\n"); // print a new line at the end so it looks better
 }
 
 void MaxHeap_destroy(MaxHeap* h) { // find comment explaining function purpose and parameters in `maxHeap.h`
+    // destroy every `EmailNode` max heap contains
+    // we only loop to the size and not capacity since there could be elements not yet assigned
+    //  but everything from index [0] to [size - 1] is
     for (int i = 0; i < h->size; i++) {
-        EmailNode_destroy(h->heap[i]);
+        EmailNode_destroy(h->heap[i]); // function that properly frees all data in an `EmailNode`
     }
-    free(h->heap);
-    free(h);
+
+    // we dont need to free the other member variables in the `MaxHeap` struct since they were not allocated in the memory heap
+    free(h->heap); // then we free the heap array
+    free(h); // then we free the entire max heap
+
+    h = NULL; // set the `MaxHeap*` to null so that if it gets used after being destoryed it causes an error, better than having the undefined behavior
 }
 
 int MaxHeap_size(MaxHeap* h) { return h->size; } // find comment explaining function purpose and parameters in `maxHeap.h`
