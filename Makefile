@@ -10,7 +10,7 @@ all: clean build
 build: $(BUILD_DIR)/assignment5.out
 
 $(BUILD_DIR)/assignment5.out: always
-	@$(MAKE) -C JackWilliamson_Assignment5/ BUILD_DIR=$(abspath $(BUILD_DIR))
+	@$(MAKE) -C JackWilliamson_Assignment5/src BUILD_DIR=$(abspath $(BUILD_DIR))
 
 #
 # RUN

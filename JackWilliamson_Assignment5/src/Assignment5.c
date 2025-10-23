@@ -1,3 +1,17 @@
+/**
+ * Assignment Name: EECS 348 Assignment 5
+ * Description: CEO Email prioritization program (written in C this time)
+ * Inputs: test file labeled Assignment5_Test_File.txt
+ * Output: Next email and number of unread emails
+ * Collaborators:
+ *      Professor Gibbons (last year's class)
+ *      geeksforgeeks.org
+ *      stackoverflow.com
+ *      (in limited usage) Github Copilot
+ * Name: John ("Jack") Scott Williamson IV
+ *   ID: 3178213
+ * Date Created: 10-21-25
+ */
 #include <stdio.h>
 
 #include <string.h>
@@ -5,8 +19,8 @@
 
 int main() {
     // load in emails from file
-    FILE* file = fopen("Assignment5_Test_File.txt", "r");
-    if (file == NULL) {
+    FILE* file = fopen("JackWilliamson_Assignment5/Assignment5_Test_File.txt", "r");
+    if (!file) {
         perror("Failed to open file");
         return 1;
     }
@@ -30,8 +44,8 @@ int main() {
         }
     }
 
-    // loop for the rest of the file, each line is a query
     while (fgets(buffer, sizeof(buffer), file)) {
+        // https://stackoverflow.com/a/28462221/16902023
         buffer[strcspn(buffer, "\r\n")] = 0;
         if (strcmp(buffer, "NEXT") == 0) {
             printf("Next email:\n");
