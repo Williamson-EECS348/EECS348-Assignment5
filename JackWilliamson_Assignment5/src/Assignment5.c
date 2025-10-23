@@ -46,6 +46,7 @@ int main() {
 
     while (fgets(buffer, sizeof(buffer), file)) {
         // https://stackoverflow.com/a/28462221/16902023
+        // https://man.freebsd.org/cgi/man.cgi?query=strcspn&sektion=3
         buffer[strcspn(buffer, "\r\n")] = 0;
         if (strcmp(buffer, "NEXT") == 0) {
             printf("Next email:\n");

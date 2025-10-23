@@ -22,6 +22,7 @@ EmailNode* EmailNode_createFromString(const char* str) {
     char* subject;
     char* date;
 
+    // https://www.geeksforgeeks.org/cpp/strtok-strtok_r-functions-c-examples/#
     token = strtok(strCopy, ",");
     category = strdup(token);
 

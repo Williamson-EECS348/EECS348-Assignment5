@@ -3,7 +3,7 @@ OBJ=$(patsubst %.c, $(BUILD_DIR)/%.o, $(SRC))
 
 NAME=assignment5
 
-.PHONY: all assignment5 clean always
+.PHONY: all assignment5 clean always debug
 
 all: assignment5
 
@@ -17,6 +17,9 @@ $(BUILD_DIR)/$(NAME).out: $(OBJ)
 
 $(BUILD_DIR)/%.o: %.c always
 	@$(CC) -c $< $(CFLAGS) -o $@
+
+debug: assignment5
+	@gdb -tui $(BUILD_DIR)/$(NAME).out
 
 clean:
 	@rm -f $(BUILD_DIR)/$(NAME).out $(OBJ)
