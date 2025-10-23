@@ -1,8 +1,8 @@
-#include "emailNode.h"
+#include "emailNode.h" // `EmailNode` "class" definition
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include <stdio.h> // needed to print
+#include <string.h> // needed for string manipulation
+#include <stdlib.h> // needed for `malloc` and `free`
 
 // `splitDate`, `checkDate`, and `checkCategory` are defined here (the source file) which effectively makes them private
 
