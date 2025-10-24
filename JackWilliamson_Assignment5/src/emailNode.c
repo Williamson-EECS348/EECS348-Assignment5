@@ -12,6 +12,11 @@ EmailNode* EmailNode_create(const char* category, const char* subject, const cha
     //  `malloc` returns a `void*` so we cast it to `EmailNode*` which points to the place in the memory heap where the `EmailNode` is
     EmailNode* node = (EmailNode*)malloc(sizeof(EmailNode));
 
+    if (!node) { // if the node fails to create and malloc returns null then we
+        fprintf(stderr, "Failed to create EmailNode - %s-%s: %s\n", category, subject, date); // print out to the user what failed
+        return NULL; // return null
+    }
+
     // initalize all the member variables; `strdup` is used because:
     //      1. the parameters are `const char*` and we need them to be `char*`
     //      2. we want `EmailNode` to take ownership of them but if the strings are rvalues they cannot since they will go out of scope
