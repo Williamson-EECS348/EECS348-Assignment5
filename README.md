@@ -6,5 +6,5 @@ make run
 ```
 This will build and run the task one code. To only build, run:
 ```
-make task1
+make build
 ```
